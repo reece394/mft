@@ -45,11 +45,13 @@ pub struct FlatMftEntryWithName {
     pub standard_info_last_modified: Option<DateTime<Utc>>,
     pub standard_info_last_access: Option<DateTime<Utc>>,
     pub standard_info_created: Option<DateTime<Utc>>,
+    pub standard_info_mft_modified: Option<DateTime<Utc>>,
     /// All of these fields are present for entries that have an 0x30 attribute.
     pub file_name_flags: Option<FileAttributeFlags>,
     pub file_name_last_modified: Option<DateTime<Utc>>,
     pub file_name_last_access: Option<DateTime<Utc>>,
     pub file_name_created: Option<DateTime<Utc>>,
+    pub file_name_mft_modified: Option<DateTime<Utc>>,
 
     pub full_path: String,
 }
@@ -112,10 +114,12 @@ impl FlatMftEntryWithName {
             standard_info_last_modified: standard_info.as_ref().map(|i| i.modified),
             standard_info_last_access: standard_info.as_ref().map(|i| i.accessed),
             standard_info_created: standard_info.as_ref().map(|i| i.created),
+            standard_info_mft_modified: standard_info.as_ref().map(|i| i.mft_modified),
             file_name_flags: file_name.as_ref().map(|i| i.flags),
             file_name_last_modified: file_name.as_ref().map(|i| i.modified),
             file_name_last_access: file_name.as_ref().map(|i| i.accessed),
             file_name_created: file_name.as_ref().map(|i| i.created),
+            file_name_mft_modified: file_name.as_ref().map(|i| i.mft_modified),
             file_size,
             full_path: parser
                 .get_full_path_for_entry(entry)
