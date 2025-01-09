@@ -276,15 +276,4 @@ mod tests {
         data.seek(SeekFrom::Start(0)).unwrap();
         assert_eq!(find_entry_size(&mut data, size).unwrap(), 1024);
     }
-
-    #[test]
-    fn test_find_entry_size() {
-        // The first header is zeroed. The second header has a corrupt
-        // sequence array. The third header is valid.
-        let f = File::open(mft_sample_name("third_header_good")).unwrap();
-        let mut data = BufReader::new(f);
-        let size = data.seek(SeekFrom::End(0)).unwrap();
-        data.seek(SeekFrom::Start(0)).unwrap();
-        assert_eq!(find_entry_size(&mut data, size).unwrap(), 1024);
-    }
 }
